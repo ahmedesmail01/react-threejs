@@ -10,6 +10,7 @@ const Three = () => {
     const { x, y } = state.mouse;
     if (orbitControlRef.current) {
       orbitControlRef.current.setAzimuthalAngle(-x * Math.PI); // Correct method name
+      orbitControlRef.current.setPolarAngle((y - 1) * Math.PI); // Correct method name
       orbitControlRef.current.update();
     }
   });
@@ -24,7 +25,11 @@ const Three = () => {
     <>
       {/* Camera */}
       <PerspectiveCamera makeDefault position={[0, 1.5, 10]} />
-      <OrbitControls ref={orbitControlRef} />
+      <OrbitControls
+        ref={orbitControlRef}
+        maxPolarAngle={Math.PI / 4}
+        minPolarAngle={Math.PI / 6}
+      />
 
       {/* Ball */}
       <mesh position={[0, 0.5, 0]}>
